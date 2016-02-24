@@ -1,0 +1,31 @@
+---
+- name: Ensure temporary directory exists
+  win_file:
+    path: "C:\\temp"
+    state: directory
+
+- name: Get openssh for windows release
+  win_get_url:
+    url: "{{ openssh_download_url }}"
+    dest: "C:\\temp\\openssh.zip"
+    force: no
+
+- name: Unzip openssh in Program Files
+  win_unzip:
+    src: "C:\\temp\\openssh.zip"
+    dest: "{{ openssh_extract_to }}"
+    creates: "{{ openssh_extract_to }}"
+
+- name: Check if ssh private key exists
+  win_stat: path='C:\\Users\\{{ ansible_user }}\\ssh_host_dsa_key'
+  register: private_key
+
+- name: Copy installation script
+  win_template:
+    src: "{{ role_path }}/templates/install-openssh.ps1.j2"
+    dest: "C:\\install-openssh.ps1"
+  when: not private_key.stat.exists
+
+- name: Run installation script
+  raw: "C:\\install-openssh.ps1"
+  when: not private_key.stat.exists

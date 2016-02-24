@@ -1,2 +1,2 @@
 ---
-# tasks file for windows-openssh
+- include: install.yml

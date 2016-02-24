@@ -1,2 +1,4 @@
 ---
-# defaults file for windows-openssh
+openssh_download_url: "https://github.com/PowerShell/Win32-OpenSSH/releases/download/latest/OpenSSH-Win64.zip"
+openssh_archive_name: "OpenSSH-Win64"
+openssh_extract_to: "C:\\OpenSSH"   
