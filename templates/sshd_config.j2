@@ -69,27 +69,6 @@ PermitEmptyPasswords {{ openssh_sshd_permit_empty_passwords }}
 # Change to no to disable s/key passwords
 ChallengeResponseAuthentication yes
 
-# Kerberos options
-KerberosAuthentication {{ openssh_sshd_kerberos_authentication }}
-KerberosOrLocalPasswd {{ openssh_sshd_kerberos_or_local_passwd }}
-KerberosTicketCleanup {{ openssh_sshd_kerberos_ticket_cleanup }}
-KerberosGetAFSToken {{ openssh_sshd_kerberos_get_afs_token }}
-
-# GSSAPI options
-GSSAPIAuthentication {{ openssh_sshd_gssapi_authentication }}
-GSSAPICleanupCredentials {{ openssh_sshd_gssapi_cleanup_credentials }}
-
-# Set this to 'yes' to enable PAM authentication, account processing, 
-# and session processing. If this is enabled, PAM authentication will 
-# be allowed through the ChallengeResponseAuthentication and
-# PasswordAuthentication.  Depending on your PAM configuration,
-# PAM authentication via ChallengeResponseAuthentication may bypass
-# the setting of "PermitRootLogin without-password".
-# If you just want the PAM account and session checks to run without
-# PAM authentication, then enable this but set PasswordAuthentication
-# and ChallengeResponseAuthentication to 'no'.
-UsePAM {{ openssh_sshd_use_pam }}
-
 AllowAgentForwarding {{ openssh_sshd_allow_agent_forwarding }}
 AllowTcpForwarding  {{ openssh_sshd_allow_tcp_forwarding }}
 GatewayPorts  {{ openssh_sshd_gateway_ports }}
@@ -104,7 +83,7 @@ UsePrivilegeSeparation {{ openssh_sshd_use_privilege_separation }}
 PermitUserEnvironment {{ openssh_sshd_permit_user_environment }}
 Compression {{ openssh_sshd_compression }}
 ClientAliveInterval {{ openssh_sshd_client_alive_interval }}
-ClientAliveCountMax3 {{ openssh_sshd_client_alive_count_max }}
+ClientAliveCountMax {{ openssh_sshd_client_alive_count_max }}
 UseDNS {{ openssh_sshd_use_dns }}
 PidFile {{ openssh_sshd_pid_file }}
 MaxStartups {{ openssh_sshd_max_startups }}
