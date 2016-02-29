@@ -17,7 +17,7 @@
     creates: "{{ openssh_extract_dir }}"
 
 - name: Check if ssh private key exists
-  win_stat: path='{{ openssh_extract_dir }}\\ssh_host_dsa_key'
+  win_stat: path="{{ openssh_extract_dir }}\\{{ openssh_archive_name }}\\ssh_host_dsa_key"
   register: private_key
 
 - name: Copy installation script
