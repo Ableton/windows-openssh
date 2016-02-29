@@ -1,0 +1,128 @@
+#jinja2: newline_sequence:'\r\n'
+
+#       $OpenBSD: sshd_config,v 1.84 2011/05/23 03:30:07 djm Exp $
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+{% for port in openssh_sshd_ports %}
+Port {{ port }}
+{% endfor %}
+
+{% for address in openssh_sshd_listen_addresses %}
+ListenAddress {{ address }}
+{% endfor %}
+
+# The default requires explicit activation of protocol 1
+Protocol {{ openssh_sshd_protocol }}
+
+# HostKeys
+{% for host_key in openssh_sshd_host_keys %}
+HostKey {{ host_key }}
+{% endfor %}
+
+# Lifetime and size of ephemeral version 1 server key
+#KeyRegenerationInterval 1h
+#ServerKeyBits 1024
+
+# Logging
+# obsoletes QuietMode and FascistLogging
+SyslogFacility {{ openssh_sshd_syslog_facility }}
+LogLevel {{ openssh_sshd_log_level }}
+
+# Authentication:
+
+LoginGraceTime {{ openssh_sshd_login_grace_time }}
+PermitRootLogin {{ openssh_sshd_permit_root_login }}
+StrictModes {{ openssh_sshd_strict_modes }}
+MaxAuthTries {{ openssh_sshd_max_auth_tries }}
+MaxSessions {{ openssh_sshd_max_sessions }}
+
+RSAAuthentication {{ openssh_sshd_rsa_authentication }}
+PubkeyAuthentication {{ openssh_sshd_pubkey_authentication }}
+
+# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+# but this is overridden so installations will only check .ssh/authorized_keys
+AuthorizedKeysFile      {{ openssh_sshd_authorized_keys_file }}
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+RhostsRSAAuthentication {{ openssh_sshd_rhosts_rsa_authentication }}
+# similar for protocol version 2
+HostbasedAuthentication {{ openssh_sshd_host_based_authentication }}
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# RhostsRSAAuthentication and HostbasedAuthentication
+IgnoreUserKnownHosts {{ openssh_sshd_ignore_user_known_hosts }}
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication {{ openssh_sshd_password_authentication }}
+PermitEmptyPasswords {{ openssh_sshd_permit_empty_passwords }}
+
+# Change to no to disable s/key passwords
+ChallengeResponseAuthentication yes
+
+# Kerberos options
+KerberosAuthentication {{ openssh_sshd_kerberos_authentication }}
+KerberosOrLocalPasswd {{ openssh_sshd_kerberos_or_local_passwd }}
+KerberosTicketCleanup {{ openssh_sshd_kerberos_ticket_cleanup }}
+KerberosGetAFSToken {{ openssh_sshd_kerberos_get_afs_token }}
+
+# GSSAPI options
+GSSAPIAuthentication {{ openssh_sshd_gssapi_authentication }}
+GSSAPICleanupCredentials {{ openssh_sshd_gssapi_cleanup_credentials }}
+
+# Set this to 'yes' to enable PAM authentication, account processing, 
+# and session processing. If this is enabled, PAM authentication will 
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+UsePAM {{ openssh_sshd_use_pam }}
+
+AllowAgentForwarding {{ openssh_sshd_allow_agent_forwarding }}
+AllowTcpForwarding  {{ openssh_sshd_allow_tcp_forwarding }}
+GatewayPorts  {{ openssh_sshd_gateway_ports }}
+X11Forwarding {{ openssh_sshd_x11_forwarding }}
+X11DisplayOffset {{ openssh_sshd_x11_display_offset }}
+X11UseLocalhost {{ openssh_sshd_x11_use_localhost }}
+PrintMotd {{ openssh_sshd_print_motd }}
+PrintLastLog  {{ openssh_sshd_print_last_log }}
+TCPKeepAlive {{ openssh_sshd_tcp_keep_alive }}
+UseLogin {{ openssh_sshd_use_login }}
+UsePrivilegeSeparation {{ openssh_sshd_use_privilege_separation }}
+PermitUserEnvironment {{ openssh_sshd_permit_user_environment }}
+Compression {{ openssh_sshd_compression }}
+ClientAliveInterval {{ openssh_sshd_client_alive_interval }}
+ClientAliveCountMax3 {{ openssh_sshd_client_alive_count_max }}
+UseDNS {{ openssh_sshd_use_dns }}
+PidFile {{ openssh_sshd_pid_file }}
+MaxStartups {{ openssh_sshd_max_startups }}
+PermitTunnel {{ openssh_sshd_permit_tunnel }}
+ChrootDirectory {{ openssh_sshd_chroot_directory }}
+
+# no default banner path
+#Banner none
+
+# override default of no subsystems
+{% for key, value in openssh_sshd_subsystems.iteritems() %}
+Subsystem       {{ key }}   {{ value }}
+{% endfor %}
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#       X11Forwarding no
+#       AllowTcpForwarding no
+#       ForceCommand cvs server
+PubkeyAcceptedKeyTypes ssh-ed25519*,ssh-rsa*,ssh-dss*,ecdsa-sha2*
+
