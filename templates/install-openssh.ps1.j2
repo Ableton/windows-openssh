@@ -1,7 +1,7 @@
 #!powershell
 
 # Move into the openssh directory (Mandatory, don't ask)
-cd {{ openssh_extract_to }}\{{ openssh_archive_name }}
+cd {{ openssh_extract_dir }}\{{ openssh_archive_name }}
 
 # Steps documented in: https://github.com/PowerShell/Win32-OpenSSH/wiki/Install-Win32-OpenSSH
 .\ssh-keygen -A

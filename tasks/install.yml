@@ -1,23 +1,23 @@
 ---
-- name: Ensure temporary directory exists
+- name: Create temporary directory
   win_file:
-    path: "C:\\temp"
+    path: "{{ openssh_temporary_dir }}"
     state: directory
 
 - name: Get openssh for windows release
   win_get_url:
     url: "{{ openssh_download_url }}"
-    dest: "C:\\temp\\openssh.zip"
+    dest: "{{ openssh_temporary_dir }}\\openssh.zip"
     force: no
 
-- name: Unzip openssh in Program Files
+- name: Unzip openssh in extraction dir
   win_unzip:
-    src: "C:\\temp\\openssh.zip"
-    dest: "{{ openssh_extract_to }}"
-    creates: "{{ openssh_extract_to }}"
+    src: "{{ openssh_temporary_dir }}\\openssh.zip"
+    dest: "{{ openssh_extract_dir }}"
+    creates: "{{ openssh_extract_dir }}"
 
 - name: Check if ssh private key exists
-  win_stat: path='C:\\Users\\{{ ansible_user }}\\ssh_host_dsa_key'
+  win_stat: path='{{ openssh_extract_dir }}\\ssh_host_dsa_key'
   register: private_key
 
 - name: Copy installation script
