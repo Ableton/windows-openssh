@@ -1,2 +1,5 @@
 ---
-# handlers file for windows-openssh
+- name: restart sshd
+  win_service:
+    name: SSHD
+    state: restarted
