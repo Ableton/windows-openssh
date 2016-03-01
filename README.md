@@ -121,4 +121,4 @@ SOFTWARE.
 Author Information
 ------------------
 
-[Theo Crevon](https://github.com/tcr-ableton) <theo.crevon@ableton.com>
+[Theo Crevon](https://github.com/tcr-ableton)
