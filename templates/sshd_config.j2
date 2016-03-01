@@ -40,54 +40,54 @@ LogLevel {{ openssh_sshd_log_level }}
 # Authentication:
 
 LoginGraceTime {{ openssh_sshd_login_grace_time }}
-PermitRootLogin {{ openssh_sshd_permit_root_login }}
-StrictModes {{ openssh_sshd_strict_modes }}
+PermitRootLogin {{ 'yes' if openssh_sshd_permit_root_login else 'no' }}
+StrictModes {{ 'yes' if openssh_sshd_strict_modes else 'no' }}
 MaxAuthTries {{ openssh_sshd_max_auth_tries }}
 MaxSessions {{ openssh_sshd_max_sessions }}
 
-RSAAuthentication {{ openssh_sshd_rsa_authentication }}
-PubkeyAuthentication {{ openssh_sshd_pubkey_authentication }}
+RSAAuthentication {{ 'yes' if openssh_sshd_rsa_authentication else 'no' }}
+PubkeyAuthentication {{ 'yes' if openssh_sshd_pubkey_authentication else 'no' }}
 
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
 AuthorizedKeysFile      {{ openssh_sshd_authorized_keys_file }}
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
-RhostsRSAAuthentication {{ openssh_sshd_rhosts_rsa_authentication }}
+RhostsRSAAuthentication {{ 'yes' if openssh_sshd_rhosts_rsa_authentication else 'no' }}
 # similar for protocol version 2
-HostbasedAuthentication {{ openssh_sshd_host_based_authentication }}
+HostbasedAuthentication {{ 'yes' if openssh_sshd_host_based_authentication else 'no' }}
 # Change to yes if you don't trust ~/.ssh/known_hosts for
 # RhostsRSAAuthentication and HostbasedAuthentication
-IgnoreUserKnownHosts {{ openssh_sshd_ignore_user_known_hosts }}
+IgnoreUserKnownHosts {{ 'yes' if openssh_sshd_ignore_user_known_hosts else 'no' }}
 # Don't read the user's ~/.rhosts and ~/.shosts files
-IgnoreRhosts yes
+IgnoreRhosts {{ 'yes' if openssh_sshd_ignore_rhosts else 'no' }}
 
 # To disable tunneled clear text passwords, change to no here!
-PasswordAuthentication {{ openssh_sshd_password_authentication }}
-PermitEmptyPasswords {{ openssh_sshd_permit_empty_passwords }}
+PasswordAuthentication {{ 'yes' if openssh_sshd_password_authentication else 'no' }}
+PermitEmptyPasswords {{ 'yes' if openssh_sshd_permit_empty_passwords else 'no' }}
 
 # Change to no to disable s/key passwords
-ChallengeResponseAuthentication yes
+ChallengeResponseAuthentication {{ 'yes' if openssh_sshd_challenge_response_authentication else 'no' }}
 
-AllowAgentForwarding {{ openssh_sshd_allow_agent_forwarding }}
-AllowTcpForwarding  {{ openssh_sshd_allow_tcp_forwarding }}
-GatewayPorts  {{ openssh_sshd_gateway_ports }}
-X11Forwarding {{ openssh_sshd_x11_forwarding }}
+AllowAgentForwarding {{ 'yes' if openssh_sshd_allow_agent_forwarding else 'no' }}
+AllowTcpForwarding  {{ 'yes' if openssh_sshd_allow_tcp_forwarding else 'no' }}
+GatewayPorts  {{ 'yes' if openssh_sshd_gateway_ports else 'no' }}
+X11Forwarding {{ 'yes' if openssh_sshd_x11_forwarding else 'no' }}
 X11DisplayOffset {{ openssh_sshd_x11_display_offset }}
-X11UseLocalhost {{ openssh_sshd_x11_use_localhost }}
-PrintMotd {{ openssh_sshd_print_motd }}
-PrintLastLog  {{ openssh_sshd_print_last_log }}
-TCPKeepAlive {{ openssh_sshd_tcp_keep_alive }}
-UseLogin {{ openssh_sshd_use_login }}
-UsePrivilegeSeparation {{ openssh_sshd_use_privilege_separation }}
-PermitUserEnvironment {{ openssh_sshd_permit_user_environment }}
+X11UseLocalhost {{ 'yes' if openssh_sshd_x11_use_localhost else 'no' }}
+PrintMotd {{ 'yes' if openssh_sshd_print_motd else 'no' }}
+PrintLastLog  {{ 'yes' if openssh_sshd_print_last_log else 'no' }}
+TCPKeepAlive {{ 'yes' if openssh_sshd_tcp_keep_alive else 'no' }}
+UseLogin {{ 'yes' if openssh_sshd_use_login else 'no' }}
+UsePrivilegeSeparation {{ 'yes' if openssh_sshd_use_privilege_separation else 'no' }}
+PermitUserEnvironment {{ 'yes' if openssh_sshd_permit_user_environment else 'no' }}
 Compression {{ openssh_sshd_compression }}
 ClientAliveInterval {{ openssh_sshd_client_alive_interval }}
 ClientAliveCountMax {{ openssh_sshd_client_alive_count_max }}
-UseDNS {{ openssh_sshd_use_dns }}
+UseDNS {{ 'yes' if openssh_sshd_use_dns else 'no' }}
 PidFile {{ openssh_sshd_pid_file }}
 MaxStartups {{ openssh_sshd_max_startups }}
-PermitTunnel {{ openssh_sshd_permit_tunnel }}
+PermitTunnel {{ 'yes' if openssh_sshd_permit_tunnel else 'no' }}
 ChrootDirectory {{ openssh_sshd_chroot_directory }}
 
 # no default banner path
