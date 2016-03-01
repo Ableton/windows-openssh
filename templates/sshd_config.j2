@@ -91,7 +91,7 @@ PermitTunnel {{ 'yes' if openssh_sshd_permit_tunnel else 'no' }}
 ChrootDirectory {{ openssh_sshd_chroot_directory }}
 
 # no default banner path
-#Banner none
+Banner {{ openssh_sshd_banner }}
 
 # override default of no subsystems
 {% for key, value in openssh_sshd_subsystems.iteritems() %}
