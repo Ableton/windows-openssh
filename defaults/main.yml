@@ -63,8 +63,6 @@ openssh_sshd_chroot_directory: none
 
 openssh_sshd_banner: none
 
-openssh_sshd_banner: none
-
 openssh_sshd_subsystems:
   sftp: /win32openssh/bin/sftp-server.exe
   scp: /win32openssh/bin/scp.exe
