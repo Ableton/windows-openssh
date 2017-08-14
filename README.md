@@ -122,3 +122,8 @@ Author Information
 ------------------
 
 [Theo Crevon](https://github.com/tcr-ableton)
+
+Maintainers
+-----------
+
+* [tcr-ableton](https://github.com/tcr-ableton)
