@@ -1,3 +1,7 @@
+# This Repository is Unmaintained
+
+This repository is currently unmaintained and will not see any more development.
+
 windows-openssh
 ===============
 
